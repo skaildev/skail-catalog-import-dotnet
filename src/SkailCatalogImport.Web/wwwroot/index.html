@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalog import · skail demo</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Catalog import</h1>
+      <p class="subtitle">A skail function imports 194 products from an external API, 20 per page, and waits 2 seconds between pages. Stop the worker in the middle and the import continues at the page where it stopped.</p>
+    </header>
+
+    <section class="controls">
+      <button id="import" type="button">Import catalog</button>
+      <label><input id="simulateFailure" type="checkbox">Make the target catalog reject page 3 twice</label>
+    </section>
+
+    <section class="status">
+      <span id="state" class="badge idle">Idle</span>
+      <span id="counter"></span>
+    </section>
+
+    <div class="progress">
+      <div class="bar" role="progressbar" aria-valuemin="0" id="bar"><div class="fill" id="fill"></div></div>
+      <span id="products"></span>
+    </div>
+
+    <p id="error" class="error" hidden></p>
+    <p id="detail" hidden></p>
+
+    <section id="pagesSection" hidden>
+      <h2>Pages</h2>
+      <table>
+        <thead><tr><th>Page</th><th>Products</th><th>Duration</th><th>Attempts</th></tr></thead>
+        <tbody id="pages"></tbody>
+      </table>
+      <p class="hint">Attempts counts the writes the target catalog received for the page. The pages imported before a crash stay at 1, because they are not read again.</p>
+    </section>
+
+    <footer>Import <code id="importId">-</code></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
